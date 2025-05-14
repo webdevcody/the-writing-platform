@@ -135,9 +135,37 @@ export const booksRelations = relations(books, ({ one }) => ({
   }),
 }));
 
+
+export const notifications = tableCreator("notification", {
+  id: serial("id").primaryKey(),
+  userId: integer("userId") 
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  commentId: integer("commentId") 
+    .notNull()
+    .references(() => comments.id, { onDelete: "cascade" }),
+  isRead: boolean("isRead").notNull().default(false),
+  icon: text("icon").notNull().default("comment"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+
+export const notificationsRelations = relations(notifications, ({ one }) => ({
+  user: one(users, {
+    fields: [notifications.userId],
+    references: [users.id],
+  }),
+  comment: one(comments, {
+    fields: [notifications.commentId],
+    references: [comments.id],
+  }),
+}));
+
+
 export type User = typeof users.$inferSelect;
 export type Profile = typeof profiles.$inferSelect;
 export type Session = typeof sessions.$inferSelect;
 export type Book = typeof books.$inferSelect;
 export type Chapter = typeof chapters.$inferSelect;
 export type Comment = typeof comments.$inferSelect;
+export type Notification = typeof notifications.$inferSelect;

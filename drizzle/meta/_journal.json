@@ -36,6 +36,13 @@
       "when": 1746839520144,
       "tag": "0004_thick_rocket_racer",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1747011100524,
+      "tag": "0005_motionless_pete_wisdom",
+      "breakpoints": true
     }
   ]
 }
